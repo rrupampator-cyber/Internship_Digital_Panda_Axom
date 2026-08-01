@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome Intern</h1>
+        <p>Enter your credentials to login</p>
+         <form action=".../backend/login.php" method="post">
+            <label for="username">Username</label>
+            <input name="username" type="text" placeholder="Enter your Username">
+            
+            <label for="password">Password</label>
+            <input name="password" type="password" placeholder="Password">
+            
+            <label for="role">Role</label>
+            <select name="role" id="role">
+                <option value="">Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="telecaller">Telecaller</option>
+                <option value="web_developer">Web Developer</option>
+                <option value="graphic_designer">Graphic Designer</option>
+                <option value="content_writer">Content Writer</option>
+                <option value="smm_marketing">SMM Marketing</option>
+            </select>
+            <br>
+            <button type="submit">Login</button>
+            <br>
+            <h2>Forget Your Password?<a href="/summer_internship/frontend/pages/forgetpassword.html">Reset it Here!</a></h2>
+            <h2>Don't have an account?<a href="/summer_internship/frontend/pages/signup.html">Create Account!</a></h2>
+        </form>
+    </div>
+</body>
+</html>
