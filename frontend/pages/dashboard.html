@@ -7,6 +7,42 @@
     <link rel="stylesheet" href="./styles/dashboard.css">
 </head>
 <body>
-    
+    <h1>Dashboard</h1>
+    <h2 id="welcome">Loading User...</h2>
+    <p>You are succesfully logged in using PHP Sessions.</p>
+
+    <h3>User Details</h3>
+    <ul>
+        <li><strong>User ID: </strong><span id="userId">Loading.....</span></li>
+        <li><strong>Name: </strong><span id="userName">Loading.....</span></li>
+        <li><strong>Email: </strong><span id="userEmail">Loading.....</span></li>
+    </ul>
+    <button onclick="logout()"> Logout</button>
+
+    <script>
+        fetch("../../backend/session_check.php")
+        .then(res => res.json())
+        .then(data => {
+            if(data.logged_in){
+                document.getElementById("welcome").innerText = "Welcome " + data.user_name;
+                document.getElementById("userId").innerText = data.user_id;
+                document.getElementById("userName").innerText = data.user_name;
+                document.getElementById("userEmail").innerText = data.user_email;
+            }
+
+            else{
+                window.location.href = "index.html";
+            }
+        });
+
+        function logout(){
+             fetch("../../backend/logout.php")
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message);
+                window.location.href = "../index.html";
+            });
+        }
+    </script>
 </body>
 </html>

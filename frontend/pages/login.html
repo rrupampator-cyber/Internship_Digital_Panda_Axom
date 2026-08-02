@@ -10,29 +10,56 @@
     <div class="container">
         <h1>Welcome Intern</h1>
         <p>Enter your credentials to login</p>
-         <form action=".../backend/login.php" method="post">
+         <form id="loginForm">
             <label for="username">Username</label>
-            <input name="username" type="text" placeholder="Enter your Username">
+            <input id="username" name="name" type="text" placeholder="Enter your Username" required>
             
             <label for="password">Password</label>
-            <input name="password" type="password" placeholder="Password">
+            <input id="password" name="password" type="password" placeholder="Password" required>
             
             <label for="role">Role</label>
-            <select name="role" id="role">
+            <select name="role" id="role" required>
                 <option value="">Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="telecaller">Telecaller</option>
-                <option value="web_developer">Web Developer</option>
-                <option value="graphic_designer">Graphic Designer</option>
-                <option value="content_writer">Content Writer</option>
-                <option value="smm_marketing">SMM Marketing</option>
+                <option value="admin" >Admin</option>
+                <option value="intern" >Intern</option>
             </select>
             <br>
-            <button type="submit">Login</button>
+            <button type="submit" >Login</button>
             <br>
             <h2>Forget Your Password?<a href="/summer_internship/frontend/pages/forgetpassword.html">Reset it Here!</a></h2>
             <h2>Don't have an account?<a href="/summer_internship/frontend/pages/signup.html">Create Account!</a></h2>
         </form>
     </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('../../backend/login.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.status === true) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = data.redirect;
+                }
+
+                else{
+                    alert(data.message || 'Login failed, Please check your credentials.');
+                }
+            }
+
+            catch (error) {
+                console.error('Error during login: ', error);
+                alert('Something went wrong. Please try again.');
+            }
+        });
+    </script>
 </body>
 </html>
